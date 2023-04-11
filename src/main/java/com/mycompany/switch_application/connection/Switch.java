@@ -1,8 +1,17 @@
 package com.mycompany.switch_application.connection;
 
- // @author sergi
-import java.net.*;
-import java.util.*;
+// @author sergi
+//import java.net.*;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.InterfaceAddress;
+import java.net.NetworkInterface;
+import java.util.Arrays;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+//import java.util.*;
 
 public class Switch {
     // Mapa para la tabla ARP
@@ -19,6 +28,7 @@ public class Switch {
             DatagramSocket socket = new DatagramSocket(5000);
 
             while (true) {
+//                System.out.println("while");
                 // Crear el paquete para recibir los datos
                 byte[] buffer = new byte[1024];
                 DatagramPacket packet = new DatagramPacket(buffer, buffer.length);

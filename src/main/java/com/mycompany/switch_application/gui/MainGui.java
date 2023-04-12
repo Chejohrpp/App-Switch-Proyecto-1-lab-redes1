@@ -5,7 +5,9 @@
  */
 package com.mycompany.switch_application.gui;
 
-import com.mycompany.switch_application.connection.Switch;
+import Controller.ServidorThread;
+import com.mycompany.switch_application.connection.Servidor;
+
 
 /**
  *
@@ -16,6 +18,8 @@ public class MainGui extends javax.swing.JFrame {
     /**
      * Creates new form MainGui
      */
+    private Servidor servidor;
+    private ServidorThread servidorThread;
     public MainGui() {
         initComponents();
     }
@@ -30,7 +34,7 @@ public class MainGui extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnARPTabla = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         btnInit = new javax.swing.JButton();
@@ -42,7 +46,12 @@ public class MainGui extends javax.swing.JFrame {
         jLabel1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jButton1.setText("Tabla ARP");
+        btnARPTabla.setText("Tabla ARP");
+        btnARPTabla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnARPTablaActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Broadcast");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -75,7 +84,7 @@ public class MainGui extends javax.swing.JFrame {
                 .addComponent(btnInit, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
+                    .addComponent(btnARPTabla, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(192, 192, 192))
         );
@@ -90,7 +99,7 @@ public class MainGui extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addComponent(btnInit)))
                 .addGap(28, 28, 28)
-                .addComponent(jButton1)
+                .addComponent(btnARPTabla)
                 .addGap(31, 31, 31)
                 .addComponent(jButton2)
                 .addGap(32, 32, 32)
@@ -107,14 +116,19 @@ public class MainGui extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnInitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInitActionPerformed
-        Switch stch = new Switch();
-        stch.start();
+       servidor = new Servidor(1234);
+       servidorThread = new ServidorThread(1234, servidor);
+       servidorThread.start();
     }//GEN-LAST:event_btnInitActionPerformed
+
+    private void btnARPTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnARPTablaActionPerformed
+        
+    }//GEN-LAST:event_btnARPTablaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnARPTabla;
     private javax.swing.JButton btnInit;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;

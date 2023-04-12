@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ManejadorCliente implements Runnable {
 
@@ -36,6 +38,8 @@ public class ManejadorCliente implements Runnable {
                 for (ManejadorCliente cliente : clientes) {
                     if (cliente != this) {
                         cliente.enviarMensaje(mac,mensaje);
+                    } else if (clientes.size() == 1) {
+                        System.out.println("MENSAJE ENVIADO RECEPTOR: " + mensaje);
                     } 
                 }
             }
@@ -68,6 +72,18 @@ public class ManejadorCliente implements Runnable {
     public String getMacAdress() {
         return macAdress;
     }
+    
+    public void enviar(String mensaje) {
+        PrintWriter salida;
+        try {
+            salida = new PrintWriter(socket.getOutputStream(), true);
+            salida.println(mensaje);
+            System.out.println(macAdress + " <- " + mensaje);
+        } catch (IOException ex) {
+            Logger.getLogger(ManejadorCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     
     
 }

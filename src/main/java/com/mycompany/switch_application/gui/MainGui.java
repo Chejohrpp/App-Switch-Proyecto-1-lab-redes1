@@ -7,9 +7,12 @@ package com.mycompany.switch_application.gui;
 
 import Controller.ServidorThread;
 import com.mycompany.switch_application.connection.Servidor;
+import gui_logic.ConsolePrintStream;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
+import javax.swing.JScrollPane;
 
 
 /**
@@ -27,6 +30,13 @@ public class MainGui extends javax.swing.JFrame {
     public MainGui() {
         servidor = new Servidor(1234);
         initComponents();
+        console.setEditable(false);
+        //JScrollPane scrollPane = new JScrollPane(console);
+        //scrollPane.setPreferredSize(new Dimension(400, 200));
+        //getContentPane().add(scrollPane, BorderLayout.CENTER);
+        ConsolePrintStream consolePrintStream = new ConsolePrintStream(console, System.out);
+        System.setOut(consolePrintStream);
+        System.setErr(consolePrintStream);
     }
 
     /**
@@ -44,6 +54,8 @@ public class MainGui extends javax.swing.JFrame {
         btnUnicast = new javax.swing.JButton();
         btnInit = new javax.swing.JButton();
         lblStatusServer = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        console = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,54 +94,64 @@ public class MainGui extends javax.swing.JFrame {
 
         lblStatusServer.setText("Server no iniciado");
 
+        console.setColumns(20);
+        console.setRows(5);
+        jScrollPane1.setViewportView(console);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(221, 221, 221)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnBroadcast, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
-                    .addComponent(btnUnicast, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(200, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnInit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblStatusServer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnARPTabla, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(192, 192, 192))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnBroadcast, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+                            .addComponent(btnUnicast, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+                            .addComponent(btnARPTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(91, 91, 91)
+                        .addComponent(btnInit, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblStatusServer)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 508, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap()
+                        .addComponent(jScrollPane1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
+                        .addGap(22, 22, 22)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(btnInit)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblStatusServer)))
-                .addGap(28, 28, 28)
-                .addComponent(btnARPTabla)
-                .addGap(31, 31, 31)
-                .addComponent(btnBroadcast)
-                .addGap(32, 32, 32)
-                .addComponent(btnUnicast)
-                .addContainerGap(135, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnARPTabla)
+                        .addGap(32, 32, 32)
+                        .addComponent(btnBroadcast)
+                        .addGap(26, 26, 26)
+                        .addComponent(btnUnicast)
+                        .addGap(28, 28, 28)
+                        .addComponent(lblStatusServer)
+                        .addGap(0, 82, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBroadcastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBroadcastActionPerformed
-         servidor.broadcast("¿quien está conectado en la red?");
-         
+         servidor.broadcast("Servidor: quien esta conectado en la red?");
     }//GEN-LAST:event_btnBroadcastActionPerformed
 
     private void btnInitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInitActionPerformed
@@ -169,7 +191,9 @@ public class MainGui extends javax.swing.JFrame {
     private javax.swing.JButton btnBroadcast;
     private javax.swing.JButton btnInit;
     private javax.swing.JButton btnUnicast;
+    private javax.swing.JTextArea console;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblStatusServer;
     // End of variables declaration//GEN-END:variables
 }

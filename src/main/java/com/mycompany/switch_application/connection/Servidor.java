@@ -51,11 +51,6 @@ public class Servidor {
         }
     }
 
-    public static void main(String[] args) {
-        Servidor servidor = new Servidor(1234);
-        servidor.iniciar();
-    }
-
     public HashMap<String, String> getTablaArp() {
         return tablaArp;
     }
